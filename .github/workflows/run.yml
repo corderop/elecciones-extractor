@@ -1,0 +1,27 @@
+name: 🏫 Run script every 3 minutes
+
+on:
+  schedule:
+    - cron: "*/3 17-23 23 7 *"
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: 📦 Install dependencies
+        run: pip install -r requirements.txt
+      - name: 📄 Write credentials to file
+        run: echo "${{ secrets.CREDENTIALS_JSON }}" | base64 --decode > credentials.json
+      - name: 🐍 Run script
+        env:
+          ELECCIONES_USER: ${{ secrets.ELECCIONES_USER }}
+          ELECCIONES_PASSWORD: ${{ secrets.ELECCIONES_PASSWORD }}
+          GSHEET_ID: ${{ secrets.GSHEET_ID }}
+        run: python src/main.py
