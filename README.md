@@ -7,7 +7,7 @@ Extract the elections results from the Goverment website. It automatically updlo
 1. Install the requirements
 
 ```bash
-pip install -r requirements.txt
+poetry install --without dev
 ```
 
 2. Create a `.env` file with the variables specified in the `.env.example` file:
@@ -35,7 +35,11 @@ python src/main.py
 
 ## Development
 
-1. Follow the steps provided in the [How to use][how-to-use] section.
+1. Install pre-commit in your computer
+
+```bash
+pip install pre-commit
+```
 
 2. Install pre-commit hooks
 
